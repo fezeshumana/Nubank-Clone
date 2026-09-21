@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Baixar codigo
@@ -19,25 +19,21 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
-
-      - name: Configurar Gradle
-        uses: gradle/actions/setup-gradle@v3
+          java-version: '11'
 
       - name: Configurar Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: '2.2.3'
 
       - name: Baixar dependencias
         run: flutter pub get
 
       - name: Compilar APK
-        run: flutter build apk --debug --no-tree-shake-icons --android-skip-build-dependency-validation
+        run: flutter build apk --debug
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
           name: meu-app-nubank
           path: build/app/outputs/flutter-apk/app-debug.apk
-          
