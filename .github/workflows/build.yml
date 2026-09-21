@@ -21,15 +21,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v3
+
       - name: Configurar Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-
-      - name: Forcar atualizacao do Gradle Wrapper
-        run: |
-          cd android
-          ./gradlew wrapper --gradle-version 8.3
 
       - name: Baixar dependencias
         run: flutter pub get
